@@ -52,6 +52,34 @@
   font-weight: 300;
 }
 
+.profileInfoLoc {
+  font-weight: 300;
+  margin-top: 10px;
+}
+
 .profileRightBottom {
   display: flex;
+}
+
+.rightbarFollowButton {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: #1872f2;
+  color: white;
+  border-radius: 5px;
+  padding: 7px 15px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.rightbarFollowText {
+  padding-right: 5px;
+}
+
+.rightbarFollowButton:focus {
+  outline: none;
 }
