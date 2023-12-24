@@ -11,8 +11,6 @@ const Album = ({ photo }: any) => {
   const [model, setModel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
-  console.log(photo.url);
-
   return (
     <>
       <div className={model ? "model open" : "model"}>
