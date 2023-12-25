@@ -1,27 +1,33 @@
 import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
+  // id: {
+  //   type: String,
+  //   required: true,
+  // },
   text: {
     type: String,
     required: true,
   },
-  author: {
-    // In Mongoose, mongoose.Schema.Types.ObjectId is a specific data type used to define a schema property that will hold a reference to another document in a different collection within a MongoDB database.
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  community: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Community",
-  },
+  author: String,
+  // {
+  //   // In Mongoose, mongoose.Schema.Types.ObjectId is a specific data type used to define a schema property that will hold a reference to another document in a different collection within a MongoDB database.
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User",
+  //   required: true,
+  // },
+  image: String,
+  // community: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Community",
+  // },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  groupId: {
-    type: String,
-  },
+  // groupId: {
+  //   type: String,
+  // },
   // parentId: {
   //   type: String,
   // },
