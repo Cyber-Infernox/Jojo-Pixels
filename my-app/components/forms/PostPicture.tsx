@@ -27,10 +27,18 @@ import { createPost } from "@/lib/actions/post.actions";
 import Image from "next/image";
 
 interface Props {
+  user: {
+    id: string;
+    objectId: string;
+    username: string;
+    name: string;
+    bio: string;
+    image: string;
+  };
   userId: string;
 }
 
-function Post({ userId }: Props) {
+function Post({ user, userId }: Props) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -43,7 +51,7 @@ function Post({ userId }: Props) {
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
-      // post_photo: "",
+      post_photo: user?.image ? user.image : "",
       post: "",
       accountId: userId,
     },

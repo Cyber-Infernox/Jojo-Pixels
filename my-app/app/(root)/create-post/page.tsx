@@ -12,11 +12,20 @@ async function Page() {
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
+  const userData = {
+    id: user.id,
+    objectId: userInfo?._id,
+    username: userInfo ? userInfo?.username : user.username,
+    name: userInfo ? userInfo?.name : user.firstName ?? "",
+    bio: userInfo ? userInfo?.bio : "",
+    image: userInfo ? userInfo?.image : user.imageUrl,
+  };
+
   return (
     <>
       <h1 className="head-text">Create Post</h1>
 
-      <Post userId={userInfo._id} />
+      <Post user={userData} userId={userInfo._id} />
     </>
   );
 }
