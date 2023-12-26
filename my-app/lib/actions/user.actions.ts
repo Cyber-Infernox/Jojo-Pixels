@@ -4,7 +4,7 @@ import { FilterQuery, SortOrder } from "mongoose";
 import { revalidatePath } from "next/cache";
 
 import Community from "../models/community.model";
-import Thread from "../models/thread.model";
+import Thread from "../models/post.model";
 import User from "../models/user.model";
 
 import { connectToDB } from "../mongoose";

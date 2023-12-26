@@ -17,30 +17,30 @@ import {
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
-import { ThreadValidation } from "@/lib/validations/thread";
-import { createThread } from "@/lib/actions/thread.actions";
+import { PostValidation } from "@/lib/validations/post";
+import { createPost } from "@/lib/actions/post.actions";
 
 interface Props {
   userId: string;
 }
 
-function PostThread({ userId }: Props) {
+function Post({ userId }: Props) {
   const router = useRouter();
   const pathname = usePathname();
 
   const { organization } = useOrganization();
 
-  const form = useForm<z.infer<typeof ThreadValidation>>({
-    resolver: zodResolver(ThreadValidation),
+  const form = useForm<z.infer<typeof PostValidation>>({
+    resolver: zodResolver(PostValidation),
     defaultValues: {
-      thread: "",
+      post: "",
       accountId: userId,
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
-    await createThread({
-      text: values.thread,
+  const onSubmit = async (values: z.infer<typeof PostValidation>) => {
+    await createPost({
+      text: values.post,
       author: userId,
       communityId: organization ? organization.id : null,
       path: pathname,
@@ -57,7 +57,7 @@ function PostThread({ userId }: Props) {
       >
         <FormField
           control={form.control}
-          name="thread"
+          name="post"
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="text-base-semibold text-light-2">
@@ -72,11 +72,11 @@ function PostThread({ userId }: Props) {
         />
 
         <Button type="submit" className="bg-primary-500">
-          Post Thread
+          Post Picture
         </Button>
       </form>
     </Form>
   );
 }
 
-export default PostThread;
+export default Post;
