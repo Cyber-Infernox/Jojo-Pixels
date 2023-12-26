@@ -5,6 +5,7 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  // image: String,
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -18,15 +19,15 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  parentId: {
-    type: String,
-  },
-  children: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Thread",
-    },
-  ],
+  // parentId: {
+  //   type: String,
+  // },
+  // children: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "Thread",
+  //   },
+  // ],
 });
 
 const Post = mongoose.models.Post || mongoose.model("Post", postSchema);
