@@ -7,7 +7,11 @@ import Image from "next/image";
 import { useState } from "react";
 import "./Album.css";
 
-const Album = ({ photo }: any) => {
+interface Props {
+  text: string;
+}
+
+const Album = ({ text }: Props) => {
   const [model, setModel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -39,6 +43,7 @@ const Album = ({ photo }: any) => {
             height={600}
           />
           <div className="absolute inset-0 hover:bg-gray-900 hover:bg-opacity-75 transition ease-in-out duration-700">
+            <span className="">{text}</span>
             <div
               id="svge"
               className={
