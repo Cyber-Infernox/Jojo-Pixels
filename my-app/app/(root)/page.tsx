@@ -1,5 +1,6 @@
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+
 import Gallery from "@/components/shared/Gallery/Gallery";
 import { fetchUser } from "@/lib/actions/user.actions";
 

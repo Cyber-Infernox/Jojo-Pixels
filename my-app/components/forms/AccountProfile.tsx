@@ -1,10 +1,10 @@
 "use client";
 
+import * as z from "zod";
 import Image from "next/image";
+import { useForm } from "react-hook-form";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
-import * as z from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -25,7 +25,6 @@ import { isBase64Image } from "@/lib/utils";
 import { UserValidation } from "@/lib/validations/user";
 import { updateUser } from "@/lib/actions/user.actions";
 
-// For typescript
 interface Props {
   user: {
     id: string;
@@ -56,10 +55,8 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   });
 
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
-    // Profile photo
     const blob = values.profile_photo;
 
-    // To check if the image has changed or not
     const hasImageChanged = isBase64Image(blob);
     if (hasImageChanged) {
       const imgRes = await startUpload(files);
@@ -69,7 +66,6 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       }
     }
 
-    // Server updation of the values submitted by the form
     await updateUser({
       name: values.name,
       path: pathname,
@@ -86,7 +82,6 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     }
   };
 
-  // File updation in react hook form
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
     fieldChange: (value: string) => void
