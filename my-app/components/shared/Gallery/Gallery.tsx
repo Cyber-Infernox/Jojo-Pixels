@@ -13,7 +13,7 @@ const Gallery = async () => {
   if (!userInfo?.onboarded) redirect("/onboarding");
 
   const result = await fetchPosts(userInfo._id);
-  console.log(result);
+  // console.log(result);
 
   return (
     <div id="Gallery" className="">
@@ -22,7 +22,7 @@ const Gallery = async () => {
       ) : (
         <>
           {result.posts.map((post) => (
-            <Album key={post._id} text={post.text} />
+            <Album key={post._id} text={post.text} url={post.image} />
           ))}
         </>
       )}

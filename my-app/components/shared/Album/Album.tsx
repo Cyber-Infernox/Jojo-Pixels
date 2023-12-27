@@ -9,9 +9,10 @@ import "./Album.css";
 
 interface Props {
   text: string;
+  url: string;
 }
 
-const Album = ({ text }: Props) => {
+const Album = ({ text, url }: Props) => {
   const [model, setModel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -26,7 +27,7 @@ const Album = ({ text }: Props) => {
           className="closure"
           onClick={() => setModel(false)}
         />
-        <Image src="/uploads/cover.jpeg" alt="logo" width={900} height={900} />
+        <Image src={url} alt="logo" width={900} height={900} />
       </div>
       <div>
         {/* <h1>Photo title: {photo.title}</h1> */}
@@ -36,12 +37,7 @@ const Album = ({ text }: Props) => {
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          <Image
-            src="/uploads/cover.jpeg"
-            alt="logo"
-            width={600}
-            height={600}
-          />
+          <Image src={url} alt="logo" width={600} height={600} />
           <div className="absolute inset-0 hover:bg-gray-900 hover:bg-opacity-75 transition ease-in-out duration-700">
             <span className="">{text}</span>
             <div
