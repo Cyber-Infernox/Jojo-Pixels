@@ -17,11 +17,11 @@ const Topbar = () => {
       </Link>
 
       <div className="flex items-center gap-1">
-        <div className="block md:hidden">
+        <div className="md:hidden mr-[13px]">
           {/* Code within the SignedIn block will only appear when you are signed in */}
           <SignedIn>
             <SignOutButton>
-              <div className="flex cursor-pointer md:hidden">
+              <div className="flex cursor-pointer">
                 <Image
                   src="/assets/logout.svg"
                   alt="logout"
@@ -33,17 +33,24 @@ const Topbar = () => {
           </SignedIn>
         </div>
 
-        <UserButton afterSignOutUrl="/" />
-
         {/* OrgansationSwitcher is another thing from clerk */}
         <OrganizationSwitcher
-        // appearance={{
-        //   baseTheme: dark,
-        //   elements: {
-        //     organizationSwitcherTrigger: "py-2 px-4",
-        //   },
-        // }}
+          appearance={{
+            baseTheme: dark,
+            elements: {
+              organizationSwitcherTrigger: "py-2 px-4",
+            },
+          }}
         />
+
+        <div className="ml-[17px]">
+          <UserButton
+            appearance={{
+              baseTheme: dark,
+            }}
+            afterSignOutUrl="/"
+          />
+        </div>
       </div>
     </nav>
   );
