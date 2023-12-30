@@ -1,4 +1,9 @@
-import { OrganizationSwitcher, SignOutButton, SignedIn } from "@clerk/nextjs";
+import {
+  UserButton,
+  OrganizationSwitcher,
+  SignOutButton,
+  SignedIn,
+} from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +21,7 @@ const Topbar = () => {
           {/* Code within the SignedIn block will only appear when you are signed in */}
           <SignedIn>
             <SignOutButton>
-              <div className="flex cursor-pointer">
+              <div className="flex cursor-pointer md:hidden">
                 <Image
                   src="/assets/logout.svg"
                   alt="logout"
@@ -28,14 +33,16 @@ const Topbar = () => {
           </SignedIn>
         </div>
 
+        <UserButton afterSignOutUrl="/" />
+
         {/* OrgansationSwitcher is another thing from clerk */}
         <OrganizationSwitcher
-          appearance={{
-            baseTheme: dark,
-            elements: {
-              organizationSwitcherTrigger: "py-2 px-4",
-            },
-          }}
+        // appearance={{
+        //   baseTheme: dark,
+        //   elements: {
+        //     organizationSwitcherTrigger: "py-2 px-4",
+        //   },
+        // }}
         />
       </div>
     </nav>
