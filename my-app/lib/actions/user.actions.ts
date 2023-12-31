@@ -25,6 +25,8 @@ export async function fetchUser(userId: string) {
 interface Params {
   userId: string;
   username: string;
+  city: string;
+  country: string;
   name: string;
   bio: string;
   image: string;
@@ -37,6 +39,8 @@ export async function updateUser({
   name,
   path,
   username,
+  city,
+  country,
   image,
 }: Params): Promise<void> {
   try {
@@ -46,6 +50,8 @@ export async function updateUser({
       { id: userId },
       {
         username: username.toLowerCase(),
+        city,
+        country,
         name,
         bio,
         image,

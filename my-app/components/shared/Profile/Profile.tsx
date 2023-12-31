@@ -11,6 +11,8 @@ interface Props {
     id: string;
     objectId: string;
     username: string;
+    city: string;
+    country: string;
     name: string;
     bio: string;
     image: string;
@@ -33,7 +35,7 @@ const Profile = ({ user }: Props) => {
           />
           <Image
             className="profileUserImg"
-            src="/uploads/profile.jpeg"
+            src={user.image}
             alt="logo"
             width={28}
             height={28}
@@ -43,7 +45,9 @@ const Profile = ({ user }: Props) => {
           <h4 className="profileInfoName">{user.name}</h4>
           <span className="profileInfoDesc">@{user.username}</span>
           <span className="profileInfoLoc">{user.bio}</span>
-          <span className="profileInfoDescy">Kolkata, India</span>
+          <span className="profileInfoDescy">
+            {user.city}, {user.country}
+          </span>
           <button className="rightbarFollowButton">
             {followed ? (
               <div className="rightbarFollowText">Unfollow</div>

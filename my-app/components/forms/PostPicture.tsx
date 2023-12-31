@@ -31,6 +31,8 @@ interface Props {
     id: string;
     objectId: string;
     username: string;
+    city: string;
+    country: string;
     name: string;
     bio: string;
     image: string;

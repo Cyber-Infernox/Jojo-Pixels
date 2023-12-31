@@ -15,6 +15,8 @@ async function Page() {
     id: user.id,
     objectId: userInfo?._id,
     username: userInfo ? userInfo?.username : user.username,
+    city: userInfo ? userInfo?.city : "",
+    country: userInfo ? userInfo?.country : "",
     name: userInfo ? userInfo?.name : user.firstName ?? "",
     bio: userInfo ? userInfo?.bio : "",
     image: userInfo ? userInfo?.image : user.imageUrl,
