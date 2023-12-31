@@ -7,7 +7,6 @@ import { dark } from "@clerk/themes";
 import "../globals.css";
 import "@uploadthing/react/styles.css";
 import Topbar from "@/components/shared/Topbar";
-import Profile from "@/components/shared/Profile/Profile";
 import LeftSidebar from "@/components/shared/LeftSidebar";
 import Bottombar from "@/components/shared/Bottombar";
 
@@ -36,10 +35,7 @@ export default function RootLayout({
           <main className="flex flex-row">
             <LeftSidebar />
             <section className="main-container">
-              <div className="w-full">
-                <Profile />
-                {children}
-              </div>
+              <div className="w-full">{children}</div>
             </section>
           </main>
 

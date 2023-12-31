@@ -6,7 +6,18 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-const Profile = () => {
+interface Props {
+  user: {
+    id: string;
+    objectId: string;
+    username: string;
+    name: string;
+    bio: string;
+    image: string;
+  };
+}
+
+const Profile = ({ user }: Props) => {
   const [followed, setFollowed] = useState(false);
 
   return (
@@ -29,9 +40,10 @@ const Profile = () => {
           />
         </div>
         <div className="profileInfo">
-          <h4 className="profileInfoName">Mrinal Kar</h4>
-          <span className="profileInfoDesc">Capturing all the way...</span>
-          <span className="profileInfoLoc">Kolkata, India</span>
+          <h4 className="profileInfoName">{user.name}</h4>
+          <span className="profileInfoDesc">@{user.username}</span>
+          <span className="profileInfoLoc">{user.bio}</span>
+          <span className="profileInfoDescy">Kolkata, India</span>
           <button className="rightbarFollowButton">
             {followed ? (
               <div className="rightbarFollowText">Unfollow</div>
