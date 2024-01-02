@@ -1,27 +1,41 @@
 import Album from "@/components/shared/Album/Album";
 import "./Gallery.css";
-import { fetchPosts } from "@/lib/actions/post.actions";
 import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 
-const Gallery = async () => {
+interface Post {
+  _id: string;
+  text: string;
+  image: string;
+  // Add other properties based on your post object structure
+}
+
+interface Result {
+  posts: Post[];
+  // Other properties in your result object
+}
+
+interface GalleryProps {
+  result: Result;
+}
+
+const Gallery: React.FC<GalleryProps> = async ({ result }) => {
   const user = await currentUser();
   if (!user) return null;
 
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
-  const result = await fetchPosts(userInfo._id);
-  // console.log(result);
+  const { posts } = result;
 
   return (
     <div id="Gallery" className="">
-      {result.posts.length === 0 ? (
+      {posts.length === 0 ? (
         <p className="no-result">No posts found</p>
       ) : (
         <>
-          {result.posts.map((post) => (
+          {posts.map((post: Post) => (
             <Album key={post._id} text={post.text} url={post.image} />
           ))}
         </>
