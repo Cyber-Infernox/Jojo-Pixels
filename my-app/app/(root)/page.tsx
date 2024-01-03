@@ -15,17 +15,6 @@ export default async function Home() {
   const result = await fetchGlobalPosts();
   // console.log(result);
 
-  // const userData = {
-  //   id: user.id,
-  //   objectId: userInfo?._id,
-  //   username: userInfo ? userInfo?.username : user.username,
-  //   city: userInfo ? userInfo?.city : "",
-  //   country: userInfo ? userInfo?.country : "",
-  //   name: userInfo ? userInfo?.name : user.firstName ?? "",
-  //   image: userInfo ? userInfo?.image : user.imageUrl,
-  //   bio: userInfo ? userInfo?.bio : "",
-  // };
-
   return (
     <main className="">
       <h1 className="text-center font-bold mb-3">Photos</h1>
