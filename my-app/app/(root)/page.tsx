@@ -17,7 +17,9 @@ export default async function Home() {
 
   return (
     <main className="">
-      <h1 className="text-center font-bold mb-3">Photos</h1>
+      <h1 className="head-text mb-[-20px] text-black font-extrabold text-center">
+        Photos
+      </h1>
       <Gallery result={result} />
     </main>
   );

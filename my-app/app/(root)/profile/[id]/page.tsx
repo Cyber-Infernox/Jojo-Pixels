@@ -29,8 +29,10 @@ export default async function Home() {
   return (
     <main className="">
       <Profile user={userData} />
-      <h1 className="text-center font-bold mb-3">Photos</h1>
-      <Gallery result={result} />
+      <h1 className="mt-[20px] text-center font-bold mb-3">Photos</h1>
+      <div className="mt-[-30px]">
+        <Gallery result={result} />
+      </div>
     </main>
   );
 }

@@ -25,7 +25,9 @@ async function Page() {
 
   return (
     <>
-      <h1 className="head-text">Create Post</h1>
+      <h1 className="head-text mb-[-20px] text-black font-extrabold text-center">
+        Create Post
+      </h1>
 
       <Post user={userData} userId={userInfo._id} />
     </>

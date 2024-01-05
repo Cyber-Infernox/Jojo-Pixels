@@ -118,7 +118,7 @@ function Post({ user, userId }: Props) {
           name="post_photo"
           render={({ field }) => (
             <FormItem className="flex items-center gap-4">
-              <FormLabel className="account-form_image-label">
+              <FormLabel className="flex h-[350px] w-[450px] items-center justify-center bg-dark-4 ml-[15px]">
                 {field.value ? (
                   <Image
                     src={field.value}
@@ -138,7 +138,7 @@ function Post({ user, userId }: Props) {
                   />
                 )}
               </FormLabel>
-              <FormControl className="flex-1 text-base-semibold text-gray-200">
+              <FormControl className="flex-1 text-base-semibold mb-[-10px] text-md ml-[15px]">
                 <Input
                   type="file"
                   accept="image/*"
@@ -155,19 +155,19 @@ function Post({ user, userId }: Props) {
           control={form.control}
           name="post"
           render={({ field }) => (
-            <FormItem className="flex w-full flex-col gap-3">
-              <FormLabel className="text-base-semibold text-light-2">
-                Content
+            <FormItem className="flex w-full flex-col gap-3 mt-[-15px]">
+              <FormLabel className="text-base-semibold text-xl mb-[-10px] font-bold ml-[20px]">
+                Caption
               </FormLabel>
-              <FormControl className="no-focus border border-dark-4 bg-dark-3 text-light-1">
-                <Textarea rows={15} {...field} />
+              <FormControl className="no-focus border ml-[15px] border-dark-4 bg-dark-3 text-light-1 w-[1210px]">
+                <Textarea rows={3} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit" className="bg-primary-500">
+        <Button type="submit" className="mt-[-15px] ml-[15px] bg-primary-500">
           Post Picture
         </Button>
       </form>
