@@ -39,29 +39,31 @@ const Album = ({ text, url }: Props) => {
         >
           <Image src={url} alt="logo" width={600} height={600} />
           <div className="absolute inset-0 hover:bg-gray-900 hover:bg-opacity-75 transition ease-in-out duration-700">
-            <span className="">{text}</span>
             <div
               id="svge"
               className={
                 isHovering
-                  ? "flex h-full items-center justify-center relative"
+                  ? "flex flex-col items-center justify-center h-full relative"
                   : "hidden"
               }
             >
-              <OpenInFullIcon
-                className="mr-14"
-                sx={{ color: "white" }}
-                onClick={() => setModel(true)}
-              />
-              <FavoriteBorderIcon
-                className="mr-14"
-                sx={{ color: "white" }}
-                // onClick={handleDelete}
-              />
-              <DeleteIcon
-                sx={{ color: "white" }}
-                // onClick={handleDelete}
-              />
+              <span className="text-white mb-[30px]">{text}</span>
+              <div className="flex items-center justify-center">
+                <OpenInFullIcon
+                  className="mr-14"
+                  sx={{ color: "white" }}
+                  onClick={() => setModel(true)}
+                />
+                <FavoriteBorderIcon
+                  className="mr-14"
+                  sx={{ color: "white" }}
+                  // onClick={handleDelete}
+                />
+                <DeleteIcon
+                  sx={{ color: "white" }}
+                  // onClick={handleDelete}
+                />
+              </div>
             </div>
           </div>
         </div>
