@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// created by chatgpt
+// created by chatgpt (Write a JS code which tells if an image is in base 64 or not)
 export function isBase64Image(imageData: string) {
   const base64Regex = /^data:image\/(png|jpe?g|gif|webp);base64,/;
   return base64Regex.test(imageData);

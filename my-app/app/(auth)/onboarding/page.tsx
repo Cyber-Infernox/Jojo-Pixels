@@ -12,12 +12,12 @@ async function Page() {
   if (userInfo?.onboarding) redirect("/");
 
   const userData = {
-    id: user.id,
+    id: user?.id,
     objectId: userInfo?._id,
-    username: userInfo ? userInfo?.username : user.username,
+    username: userInfo ? userInfo?.username : user?.username,
     city: userInfo ? userInfo?.city : "",
     country: userInfo ? userInfo?.country : "",
-    name: userInfo ? userInfo?.name : user.firstName ?? "",
+    name: userInfo ? userInfo?.name : user.firstName || "",
     bio: userInfo ? userInfo?.bio : "",
     image: userInfo ? userInfo?.image : user.imageUrl,
   };

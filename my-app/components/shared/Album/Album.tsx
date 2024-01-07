@@ -27,7 +27,7 @@ const Album = ({ text, url }: Props) => {
           className="closure"
           onClick={() => setModel(false)}
         />
-        <Image src={url} alt="logo" width={900} height={900} />
+        <Image src={url} alt="logo" width={700} height={700} />
       </div>
       <div>
         {/* <h1>Photo title: {photo.title}</h1> */}

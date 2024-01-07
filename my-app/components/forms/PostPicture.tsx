@@ -126,7 +126,7 @@ function Post({ user, userId }: Props) {
                     width={96}
                     height={96}
                     priority
-                    className="rounded-full object-contain"
+                    className="h-[350px] w-[450px] object-contain"
                   />
                 ) : (
                   <Image
