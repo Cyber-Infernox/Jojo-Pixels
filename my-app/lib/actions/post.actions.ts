@@ -4,8 +4,8 @@ import { revalidatePath } from "next/cache";
 
 import { connectToDB } from "../mongoose";
 
-import User from "../models/user.model";
 import Post from "../models/post.model";
+import User from "../models/user.model";
 import Community from "../models/community.model";
 
 export async function fetchGlobalPosts() {
