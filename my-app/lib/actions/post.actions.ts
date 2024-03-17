@@ -115,7 +115,7 @@ export async function createPost({
       text,
       author,
       image,
-      community: communityIdObject, // Assign communityId if provided, or leave it null for personal account
+      community: communityIdObject ? communityIdObject : null, // Assign communityId if provided, or leave it null for personal account
     });
 
     // Update User model

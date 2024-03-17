@@ -43,7 +43,6 @@ interface Props {
 function Post({ user, userId }: Props) {
   const router = useRouter();
   const pathname = usePathname();
-
   const { startUpload } = useUploadThing("media");
 
   const [files, setFiles] = useState<File[]>([]);
@@ -60,7 +59,7 @@ function Post({ user, userId }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof PostValidation>) => {
-    console.log("Hello");
+    // console.log("Hello");
 
     const blob = values.post_photo;
 
@@ -68,8 +67,8 @@ function Post({ user, userId }: Props) {
     if (hasImageChanged) {
       const imgRes = await startUpload(files);
 
-      if (imgRes && imgRes[0].fileUrl) {
-        values.post_photo = imgRes[0].fileUrl;
+      if (imgRes && imgRes[0].url) {
+        values.post_photo = imgRes[0].url;
       }
     }
 
