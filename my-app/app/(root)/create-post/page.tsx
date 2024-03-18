@@ -8,6 +8,7 @@ async function Page() {
   const user = await currentUser();
   if (!user) {
     redirect("/sign-in");
+    return null;
   }
 
   // fetch organization list created by user

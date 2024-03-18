@@ -9,6 +9,7 @@ export default async function Home() {
   const user = await currentUser();
   if (!user) {
     redirect("/sign-in");
+    return null;
   }
 
   const userInfo = await fetchUser(user.id);
@@ -22,7 +23,7 @@ export default async function Home() {
       <h1 className="head-text mb-[-20px] text-black font-extrabold text-center">
         Photos
       </h1>
-      <Gallery result={result} />
+      <Gallery result={JSON.parse(JSON.stringify(result))} />
     </main>
   );
 }
