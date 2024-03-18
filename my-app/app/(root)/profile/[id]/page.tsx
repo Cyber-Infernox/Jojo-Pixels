@@ -28,10 +28,10 @@ export default async function Home() {
 
   return (
     <main className="">
-      <Profile user={userData} />
+      <Profile user={JSON.parse(JSON.stringify(userData))} />
       <h1 className="mt-[20px] text-center font-bold mb-3">Photos</h1>
       <div className="mt-[-30px]">
-        <Gallery result={result} />
+        <Gallery result={JSON.parse(JSON.stringify(result))} />
       </div>
     </main>
   );
