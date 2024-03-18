@@ -31,7 +31,10 @@ async function Page() {
         Create Post
       </h1>
 
-      <Post user={userData} userId={userInfo._id} />
+      <Post
+        user={JSON.parse(JSON.stringify(userData))}
+        userId={JSON.parse(JSON.stringify(userInfo._id))}
+      />
     </>
   );
 }
