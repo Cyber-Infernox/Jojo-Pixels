@@ -26,14 +26,12 @@ const Profile = ({ user }: Props) => {
     <div className="profileRight">
       <div className="profileRightTop">
         <div className="profileCover">
-          <Image
+          <img
             className="profileCoverImg"
-            src="/uploads/cover.jpeg"
-            alt="logo"
-            width={28}
-            height={28}
+            src="/uploads/cover.jpg"
+            alt="cover_pic"
           />
-          <Image
+          <img
             className="profileUserImg"
             src={user.image}
             alt="logo"
