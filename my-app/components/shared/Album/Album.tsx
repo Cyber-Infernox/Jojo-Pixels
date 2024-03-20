@@ -1,20 +1,48 @@
 "use client";
 
+import { currentUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
 import "./Album.css";
 
+import { fetchUser } from "@/lib/actions/user.actions";
+import { deletePost } from "@/lib/actions/post.actions";
+
 interface Props {
+  currUser: string;
+  postId: string;
+  userId: string;
   text: string;
   url: string;
 }
 
-const Album = ({ text, url }: Props) => {
+const Album = ({ currUser, postId, userId, text, url }: Props) => {
+  const router = useRouter();
   const [model, setModel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const pathname = usePathname();
+
+  console.log(currUser);
+  console.log(userId);
+
+  const handleDelete = async () => {
+    if (currUser === userId) {
+      await deletePost({
+        postId: postId,
+        userId: userId,
+        path: pathname,
+      });
+
+      location.reload();
+    } else {
+      alert("You cannot delete other's posts!!");
+    }
+  };
 
   return (
     <>
@@ -59,10 +87,7 @@ const Album = ({ text, url }: Props) => {
                   sx={{ color: "white" }}
                   // onClick={handleDelete}
                 />
-                <DeleteIcon
-                  sx={{ color: "white" }}
-                  // onClick={handleDelete}
-                />
+                <DeleteIcon sx={{ color: "white" }} onClick={handleDelete} />
               </div>
             </div>
           </div>

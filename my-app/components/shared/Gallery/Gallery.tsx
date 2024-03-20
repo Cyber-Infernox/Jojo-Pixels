@@ -8,6 +8,7 @@ interface Post {
   _id: string;
   text: string;
   image: string;
+  author: any;
   // Add other properties based on your post object structure
 }
 
@@ -29,6 +30,8 @@ const Gallery: React.FC<GalleryProps> = async ({ result }) => {
 
   const { posts } = result;
 
+  // console.log(result.posts[0].author);
+
   return (
     <div id="Gallery" className="">
       {posts.length === 0 ? (
@@ -36,7 +39,14 @@ const Gallery: React.FC<GalleryProps> = async ({ result }) => {
       ) : (
         <>
           {posts.map((post: Post) => (
-            <Album key={post._id} text={post.text} url={post.image} />
+            <Album
+              key={post._id}
+              currUser={user.id}
+              postId={post._id}
+              userId={post.author.id}
+              text={post.text}
+              url={post.image}
+            />
           ))}
         </>
       )}

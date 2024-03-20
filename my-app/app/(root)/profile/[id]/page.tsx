@@ -25,6 +25,7 @@ export default async function Home() {
   };
 
   const result = await fetchPosts(userInfo._id);
+  // console.log(result.author);
 
   return (
     <main className="">
