@@ -28,6 +28,7 @@ const Gallery: React.FC<GalleryProps> = async ({ result }) => {
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
+  console.log(userInfo._id);
   const { posts } = result;
 
   // console.log(result.posts[0].author);
@@ -41,6 +42,7 @@ const Gallery: React.FC<GalleryProps> = async ({ result }) => {
           {posts.map((post: Post) => (
             <Album
               key={post._id}
+              userObject={userInfo._id}
               currUser={user.id}
               postId={post._id}
               userId={post.author.id}

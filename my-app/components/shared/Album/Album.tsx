@@ -5,15 +5,21 @@ import { redirect } from "next/navigation";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Album.css";
 
 import { fetchUser } from "@/lib/actions/user.actions";
 import { deletePost } from "@/lib/actions/post.actions";
+import { likePost } from "@/lib/actions/post.actions";
+import { unlikePost } from "@/lib/actions/post.actions";
+import { setLike } from "@/lib/actions/post.actions";
+import { getLikesCount } from "@/lib/actions/post.actions";
 
 interface Props {
+  userObject: string;
   currUser: string;
   postId: string;
   userId: string;
@@ -21,18 +27,83 @@ interface Props {
   url: string;
 }
 
-const Album = ({ currUser, postId, userId, text, url }: Props) => {
+const Album = ({ userObject, currUser, postId, userId, text, url }: Props) => {
   const router = useRouter();
   const [model, setModel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [liked, setIsLiked] = useState(false);
+  const [likes, setLikes] = useState(0);
   const pathname = usePathname();
 
   console.log(currUser);
   console.log(userId);
+  console.log(postId);
+
+  useEffect(() => {
+    setLike({
+      userObject: userObject,
+      postId: postId,
+      userId: userId,
+      path: pathname,
+    })
+      .then((result) => {
+        setIsLiked(result === 1 ? true : false);
+      })
+      .catch((error) => {
+        console.error("Failed to check if post is liked:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    getLikesCount({
+      postId: postId,
+    })
+      .then((result) => {
+        setLikes(result);
+      })
+      .catch((error) => {
+        console.error("Failed to check if post is liked:", error);
+      });
+  }, []);
+
+  const handleLike = async () => {
+    try {
+      await likePost({
+        userObject: userObject,
+        postId: postId,
+        userId: userId,
+        path: pathname,
+      });
+
+      console.log("liked");
+      setIsLiked(true);
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUnlike = async () => {
+    try {
+      await unlikePost({
+        userObject: userObject,
+        postId: postId,
+        userId: userId,
+        path: pathname,
+      });
+
+      console.log("unliked");
+      setIsLiked(false);
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleDelete = async () => {
     if (currUser === userId) {
       await deletePost({
+        userObject: userObject,
         postId: postId,
         userId: userId,
         path: pathname,
@@ -82,11 +153,22 @@ const Album = ({ currUser, postId, userId, text, url }: Props) => {
                   sx={{ color: "white" }}
                   onClick={() => setModel(true)}
                 />
-                <FavoriteBorderIcon
-                  className="mr-14"
-                  sx={{ color: "white" }}
-                  // onClick={handleDelete}
-                />
+                <div className="mr-14 text-white">
+                  {liked ? (
+                    <FavoriteIcon
+                      className="mr-2"
+                      sx={{ color: "white" }}
+                      onClick={handleUnlike}
+                    />
+                  ) : (
+                    <FavoriteBorderIcon
+                      className="mr-2"
+                      sx={{ color: "white" }}
+                      onClick={handleLike}
+                    />
+                  )}
+                  {likes} {likes === 1 ? "Like" : "Likes"}
+                </div>
                 <DeleteIcon sx={{ color: "white" }} onClick={handleDelete} />
               </div>
             </div>
