@@ -35,9 +35,9 @@ const Album = ({ userObject, currUser, postId, userId, text, url }: Props) => {
   const [likes, setLikes] = useState(0);
   const pathname = usePathname();
 
-  console.log(currUser);
-  console.log(userId);
-  console.log(postId);
+  // console.log(currUser);
+  // console.log(userId);
+  // console.log(postId);
 
   useEffect(() => {
     setLike({
