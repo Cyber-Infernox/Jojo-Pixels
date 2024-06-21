@@ -2,7 +2,6 @@
 
 import * as z from "zod";
 import { useForm } from "react-hook-form";
-import { useOrganization } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
@@ -47,8 +46,6 @@ function Post({ user, userId }: Props) {
 
   const [files, setFiles] = useState<File[]>([]);
 
-  const { organization } = useOrganization();
-
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
@@ -75,7 +72,6 @@ function Post({ user, userId }: Props) {
     await createPost({
       text: values.post,
       author: userId,
-      communityId: organization ? organization.id : null,
       path: pathname,
       image: values.post_photo,
     });

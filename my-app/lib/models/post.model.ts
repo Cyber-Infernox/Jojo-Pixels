@@ -17,23 +17,10 @@ const postSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
-  community: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Community",
-  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  // parentId: {
-  //   type: String,
-  // },
-  // children: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "Thread",
-  //   },
-  // ],
 });
 
 const Post = mongoose.models.Post || mongoose.model("Post", postSchema);

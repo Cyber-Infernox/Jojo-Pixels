@@ -33,16 +33,6 @@ const Topbar = () => {
           </SignedIn>
         </div>
 
-        {/* OrgansationSwitcher is another thing from clerk */}
-        <OrganizationSwitcher
-          appearance={{
-            baseTheme: dark,
-            elements: {
-              organizationSwitcherTrigger: "py-2 px-4",
-            },
-          }}
-        />
-
         <div className="ml-[17px]">
           <UserButton
             appearance={{
