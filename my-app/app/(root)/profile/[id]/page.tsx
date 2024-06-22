@@ -6,25 +6,27 @@ import Profile from "@/components/shared/Profile/Profile";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { fetchPosts } from "@/lib/actions/post.actions";
 
-export default async function Home() {
+export default async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
   if (!user) return null;
 
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
+  const pageInfo = await fetchUser(params.id);
+
   const userData = {
-    id: user.id,
-    objectId: userInfo?._id,
-    username: userInfo ? userInfo?.username : user.username,
-    city: userInfo ? userInfo?.city : "",
-    country: userInfo ? userInfo?.country : "",
-    name: userInfo ? userInfo?.name : user.firstName ?? "",
-    image: userInfo ? userInfo?.image : user.imageUrl,
-    bio: userInfo ? userInfo?.bio : "",
+    id: pageInfo.id,
+    objectId: pageInfo?._id,
+    username: pageInfo ? pageInfo?.username : user.username,
+    city: pageInfo ? pageInfo?.city : "",
+    country: pageInfo ? pageInfo?.country : "",
+    name: pageInfo ? pageInfo?.name : user.firstName ?? "",
+    image: pageInfo ? pageInfo?.image : user.imageUrl,
+    bio: pageInfo ? pageInfo?.bio : "",
   };
 
-  const result = await fetchPosts(userInfo._id);
+  const result = await fetchPosts(pageInfo._id);
   // console.log(result.author);
 
   return (

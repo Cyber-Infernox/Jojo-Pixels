@@ -4,6 +4,7 @@ import { FilterQuery, SortOrder } from "mongoose";
 import { revalidatePath } from "next/cache";
 
 import User from "../models/user.model";
+import Post from "../models/post.model";
 
 import { connectToDB } from "../mongoose";
 
@@ -118,6 +119,29 @@ export async function fetchUsers({
     return { users, isNext };
   } catch (error) {
     console.error("Error fetching users:", error);
+    throw error;
+  }
+}
+
+export async function getLikes(userId: string) {
+  try {
+    await connectToDB();
+
+    // Find all posts created by the user
+    const userPosts = await Post.find({ author: userId }).populate({
+      path: "likes",
+      model: User,
+      select: "name image id _id",
+    });
+
+    // Collect all likes from the user's posts
+    const likes = userPosts.reduce((acc, post) => {
+      return acc.concat(post.likes);
+    }, []);
+
+    return likes;
+  } catch (error) {
+    console.error("Error fetching likes: ", error);
     throw error;
   }
 }
