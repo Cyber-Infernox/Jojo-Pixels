@@ -145,3 +145,48 @@ export async function getLikes(userId: string) {
     throw error;
   }
 }
+
+interface FollowParams {
+  userId: string;
+  followerId: string;
+  follow: boolean;
+}
+
+export async function updateFollowStatus({
+  userId,
+  followerId,
+  follow,
+}: FollowParams) {
+  try {
+    await connectToDB();
+
+    // Fetch the user to be followed/unfollowed from the database
+    const user = await User.findOne({ _id: userId });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    if (follow) {
+      // Add the followerId to the followers array if not already present
+      if (!user.followers.includes(followerId)) {
+        user.followers.push(followerId);
+        console.log(`Added followerId ${followerId} to userId ${userId}`);
+      }
+    } else {
+      // Remove the followerId from the followers array
+      const index = user.followers.indexOf(followerId);
+      if (index > -1) {
+        user.followers.splice(index, 1);
+        console.log(`Removed followerId ${followerId} from userId ${userId}`);
+      }
+    }
+
+    await user.save();
+    console.log(`User ${userId} follow status updated successfully`);
+    return { message: "Follow status updated successfully" };
+  } catch (error) {
+    console.error("Error updating follow status:", error);
+    throw error;
+  }
+}

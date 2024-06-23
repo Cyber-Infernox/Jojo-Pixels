@@ -1,42 +1,73 @@
 "use client";
 
+import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
 import "./Profile.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
+import { updateFollowStatus } from "@/lib/actions/user.actions";
+
+interface UserProps {
+  currUserId: string;
+  id: string;
+  objectId: string;
+  username: string;
+  city: string;
+  country: string;
+  name: string;
+  bio: string;
+  image: string;
+}
+
 interface Props {
-  user: {
-    id: string;
-    objectId: string;
-    username: string;
-    city: string;
-    country: string;
-    name: string;
-    bio: string;
-    image: string;
-  };
+  user: UserProps;
 }
 
 const Profile = ({ user }: Props) => {
   const [followed, setFollowed] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log(user.currUserId);
+    console.log(user.id);
+  }, [user]);
+
+  const handleFollowClick = async () => {
+    setLoading(true);
+    try {
+      const response = await updateFollowStatus({
+        userId: user.objectId,
+        followerId: user.currUserId,
+        follow: !followed,
+      });
+
+      setFollowed(!followed);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="profileRight">
       <div className="profileRightTop">
         <div className="profileCover">
-          <img
+          <Image
             className="profileCoverImg"
             src="/uploads/cover.jpg"
             alt="cover_pic"
+            width={500}
+            height={300}
           />
-          <img
+          <Image
             className="profileUserImg"
             src={user.image}
             alt="logo"
-            width={28}
-            height={28}
+            width={100}
+            height={100}
           />
         </div>
         <div className="profileInfo">
@@ -46,7 +77,11 @@ const Profile = ({ user }: Props) => {
           <span className="profileInfoDescy">
             {user.city}, {user.country}
           </span>
-          <button className="rightbarFollowButton">
+          <button
+            className="rightbarFollowButton"
+            onClick={handleFollowClick}
+            disabled={loading}
+          >
             {followed ? (
               <div className="rightbarFollowText">Unfollow</div>
             ) : (
@@ -67,10 +102,6 @@ const Profile = ({ user }: Props) => {
           </div>
         </div>
       </div>
-      {/* <div className="profileRightBottom">
-              <Feed username={params.username} />
-              <Rightbar user={user} />
-            </div> */}
     </div>
   );
 };

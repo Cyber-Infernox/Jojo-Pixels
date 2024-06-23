@@ -30,6 +30,12 @@ const userSchema = new mongoose.Schema({
       ref: "Post",
     },
   ],
+  followers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   onboarded: {
     type: Boolean,
     default: false,

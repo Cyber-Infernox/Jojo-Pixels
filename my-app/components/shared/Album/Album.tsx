@@ -169,7 +169,9 @@ const Album = ({ userObject, currUser, postId, userId, text, url }: Props) => {
                   )}
                   {likes} {likes === 1 ? "Like" : "Likes"}
                 </div>
-                <DeleteIcon sx={{ color: "white" }} onClick={handleDelete} />
+                {currUser === userId && (
+                  <DeleteIcon sx={{ color: "white" }} onClick={handleDelete} />
+                )}
               </div>
             </div>
           </div>

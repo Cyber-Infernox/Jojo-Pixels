@@ -16,6 +16,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   const pageInfo = await fetchUser(params.id);
 
   const userData = {
+    currUserId: userInfo._id,
     id: pageInfo.id,
     objectId: pageInfo?._id,
     username: pageInfo ? pageInfo?.username : user.username,
