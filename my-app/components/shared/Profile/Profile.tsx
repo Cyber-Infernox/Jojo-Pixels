@@ -7,7 +7,11 @@ import { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-import { updateFollowStatus } from "@/lib/actions/user.actions";
+import {
+  updateFollowStatus,
+  checkFollowStatus,
+  getFollowerCount,
+} from "@/lib/actions/user.actions";
 
 interface UserProps {
   currUserId: string;
@@ -28,10 +32,29 @@ interface Props {
 const Profile = ({ user }: Props) => {
   const [followed, setFollowed] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [followerCount, setFollowerCount] = useState(0);
 
   useEffect(() => {
-    console.log(user.currUserId);
-    console.log(user.id);
+    const fetchFollowStatus = async () => {
+      try {
+        const [followStatusResponse, followerCountResponse] = await Promise.all(
+          [
+            checkFollowStatus({
+              userId: user.objectId,
+              followerId: user.currUserId,
+            }),
+            getFollowerCount(user.objectId),
+          ]
+        );
+
+        setFollowed(followStatusResponse.isFollowing);
+        setFollowerCount(followerCountResponse.followerCount);
+      } catch (error) {
+        console.error("Error fetching follow status or follower count:", error);
+      }
+    };
+
+    fetchFollowStatus();
   }, [user]);
 
   const handleFollowClick = async () => {
@@ -44,6 +67,9 @@ const Profile = ({ user }: Props) => {
       });
 
       setFollowed(!followed);
+      setFollowerCount((prevCount) =>
+        followed ? prevCount - 1 : prevCount + 1
+      );
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -91,7 +117,7 @@ const Profile = ({ user }: Props) => {
           </button>
           <div className="profileInfoLoc">
             <span className="mr-[20px]">
-              10 - <b>Followers</b>
+              {followerCount} - <b>Followers</b>
             </span>
             <span className="mr-[20px]">
               10 - <b>Photo Likes</b>

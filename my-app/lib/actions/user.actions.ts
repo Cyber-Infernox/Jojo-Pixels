@@ -190,3 +190,51 @@ export async function updateFollowStatus({
     throw error;
   }
 }
+
+export async function checkFollowStatus({
+  userId,
+  followerId,
+}: {
+  userId: string;
+  followerId: string;
+}) {
+  try {
+    await connectToDB();
+
+    // Fetch the user to be checked from the database
+    const user = await User.findOne({ _id: userId });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Check if the followerId exists in the followers array
+    const isFollowing = user.followers.includes(followerId);
+
+    return { isFollowing };
+  } catch (error) {
+    console.error("Error checking follow status:", error);
+    throw error;
+  }
+}
+
+export async function getFollowerCount(userId: string) {
+  try {
+    await connectToDB();
+
+    // Fetch the user from the database
+    const user = await User.findOne({ _id: userId });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Return the number of followers
+    const followerCount = user.followers.length;
+
+    return { followerCount };
+  } catch (error) {
+    console.error("Error getting follower count:", error);
+    throw error;
+  }
+}
