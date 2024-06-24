@@ -128,7 +128,7 @@ export async function setLike({
     }
 
     // Retrieve the post from the database
-    const post = await Post.findOne({ id: postId });
+    const post = await Post.findOne({ _id: postId });
 
     if (!post) {
       throw new Error("Post not found");
