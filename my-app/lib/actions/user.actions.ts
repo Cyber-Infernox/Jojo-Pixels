@@ -257,3 +257,15 @@ export async function getFollowingCount(userId: string) {
     throw error;
   }
 }
+
+export async function getTotalLikes(userId: string): Promise<number> {
+  await connectToDB();
+
+  // Fetch all posts by the user
+  const posts = await Post.find({ author: userId });
+
+  // Sum up the likes from all posts
+  const totalLikes = posts.reduce((sum, post) => sum + post.likes.length, 0);
+
+  return totalLikes;
+}

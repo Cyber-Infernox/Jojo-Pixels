@@ -12,6 +12,7 @@ import {
   checkFollowStatus,
   getFollowerCount,
   getFollowingCount,
+  getTotalLikes, // Import the function to get total likes
 } from "@/lib/actions/user.actions";
 
 interface UserProps {
@@ -35,6 +36,7 @@ const Profile = ({ user }: Props) => {
   const [loading, setLoading] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
+  const [totalLikes, setTotalLikes] = useState(0); // Add state for total likes
 
   useEffect(() => {
     const fetchFollowStatus = async () => {
@@ -43,6 +45,7 @@ const Profile = ({ user }: Props) => {
           followStatusResponse,
           followerCountResponse,
           followingCountResponse,
+          totalLikesResponse, // Fetch total likes
         ] = await Promise.all([
           checkFollowStatus({
             userId: user.objectId,
@@ -50,11 +53,13 @@ const Profile = ({ user }: Props) => {
           }),
           getFollowerCount(user.objectId),
           getFollowingCount(user.objectId),
+          getTotalLikes(user.objectId), // Get total likes
         ]);
 
         setFollowed(followStatusResponse.isFollowing);
         setFollowerCount(followerCountResponse.followerCount);
         setFollowingCount(followingCountResponse.followingCount);
+        setTotalLikes(totalLikesResponse); // Set total likes
       } catch (error) {
         console.error("Error fetching follow status or counts:", error);
       }
@@ -76,9 +81,6 @@ const Profile = ({ user }: Props) => {
       setFollowerCount((prevCount) =>
         followed ? prevCount - 1 : prevCount + 1
       );
-      // setFollowingCount((prevCount) =>
-      //   followed ? prevCount - 1 : prevCount + 1
-      // );
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -131,7 +133,7 @@ const Profile = ({ user }: Props) => {
               {followerCount} - <b>Followers</b>
             </span>
             <span className="mr-[20px]">
-              10 - <b>Photo Likes</b>
+              {totalLikes} - <b>Photo Likes</b> {/* Display total likes */}
             </span>
             <span className="mr-[20px]">
               {followingCount} - <b>Followings</b>
