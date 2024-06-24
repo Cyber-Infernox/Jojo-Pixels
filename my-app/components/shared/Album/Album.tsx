@@ -1,7 +1,5 @@
 "use client";
 
-import { currentUser } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -11,7 +9,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import "./Album.css";
 
-import { fetchUser } from "@/lib/actions/user.actions";
 import { deletePost } from "@/lib/actions/post.actions";
 import { likePost } from "@/lib/actions/post.actions";
 import { unlikePost } from "@/lib/actions/post.actions";
@@ -59,11 +56,13 @@ const Album = ({ userObject, currUser, postId, userId, text, url }: Props) => {
       postId: postId,
     })
       .then((result) => {
+        // console.log(result);
         setLikes(result);
       })
       .catch((error) => {
-        console.error("Failed to check if post is liked:", error);
+        console.error("Failed to check number of likes in post:", error);
       });
+    // console.log(postId);
   }, []);
 
   const handleLike = async () => {
