@@ -36,6 +36,12 @@ const userSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  followings: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   onboarded: {
     type: Boolean,
     default: false,

@@ -160,30 +160,34 @@ export async function updateFollowStatus({
   try {
     await connectToDB();
 
-    // Fetch the user to be followed/unfollowed from the database
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findById(userId);
+    const follower = await User.findById(followerId);
 
-    if (!user) {
-      throw new Error("User not found");
+    if (!user || !follower) {
+      throw new Error("User or follower not found");
     }
 
     if (follow) {
-      // Add the followerId to the followers array if not already present
       if (!user.followers.includes(followerId)) {
         user.followers.push(followerId);
-        console.log(`Added followerId ${followerId} to userId ${userId}`);
+      }
+      if (!follower.followings.includes(userId)) {
+        follower.followings.push(userId);
       }
     } else {
-      // Remove the followerId from the followers array
-      const index = user.followers.indexOf(followerId);
-      if (index > -1) {
-        user.followers.splice(index, 1);
-        console.log(`Removed followerId ${followerId} from userId ${userId}`);
+      const followerIndex = user.followers.indexOf(followerId);
+      if (followerIndex > -1) {
+        user.followers.splice(followerIndex, 1);
+      }
+      const followingindex = follower.followings.indexOf(userId);
+      if (followingindex > -1) {
+        follower.followings.splice(followingindex, 1);
       }
     }
 
     await user.save();
-    console.log(`User ${userId} follow status updated successfully`);
+    await follower.save();
+
     return { message: "Follow status updated successfully" };
   } catch (error) {
     console.error("Error updating follow status:", error);
@@ -201,14 +205,12 @@ export async function checkFollowStatus({
   try {
     await connectToDB();
 
-    // Fetch the user to be checked from the database
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findById(userId);
 
     if (!user) {
       throw new Error("User not found");
     }
 
-    // Check if the followerId exists in the followers array
     const isFollowing = user.followers.includes(followerId);
 
     return { isFollowing };
@@ -222,19 +224,36 @@ export async function getFollowerCount(userId: string) {
   try {
     await connectToDB();
 
-    // Fetch the user from the database
-    const user = await User.findOne({ _id: userId });
+    const user = await User.findById(userId);
 
     if (!user) {
       throw new Error("User not found");
     }
 
-    // Return the number of followers
     const followerCount = user.followers.length;
 
     return { followerCount };
   } catch (error) {
     console.error("Error getting follower count:", error);
+    throw error;
+  }
+}
+
+export async function getFollowingCount(userId: string) {
+  try {
+    await connectToDB();
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const followingCount = user.followings.length;
+
+    return { followingCount };
+  } catch (error) {
+    console.error("Error getting following count:", error);
     throw error;
   }
 }

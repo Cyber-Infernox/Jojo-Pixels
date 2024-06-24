@@ -11,6 +11,7 @@ import {
   updateFollowStatus,
   checkFollowStatus,
   getFollowerCount,
+  getFollowingCount,
 } from "@/lib/actions/user.actions";
 
 interface UserProps {
@@ -33,24 +34,29 @@ const Profile = ({ user }: Props) => {
   const [followed, setFollowed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
 
   useEffect(() => {
     const fetchFollowStatus = async () => {
       try {
-        const [followStatusResponse, followerCountResponse] = await Promise.all(
-          [
-            checkFollowStatus({
-              userId: user.objectId,
-              followerId: user.currUserId,
-            }),
-            getFollowerCount(user.objectId),
-          ]
-        );
+        const [
+          followStatusResponse,
+          followerCountResponse,
+          followingCountResponse,
+        ] = await Promise.all([
+          checkFollowStatus({
+            userId: user.objectId,
+            followerId: user.currUserId,
+          }),
+          getFollowerCount(user.objectId),
+          getFollowingCount(user.objectId),
+        ]);
 
         setFollowed(followStatusResponse.isFollowing);
         setFollowerCount(followerCountResponse.followerCount);
+        setFollowingCount(followingCountResponse.followingCount);
       } catch (error) {
-        console.error("Error fetching follow status or follower count:", error);
+        console.error("Error fetching follow status or counts:", error);
       }
     };
 
@@ -60,7 +66,7 @@ const Profile = ({ user }: Props) => {
   const handleFollowClick = async () => {
     setLoading(true);
     try {
-      const response = await updateFollowStatus({
+      await updateFollowStatus({
         userId: user.objectId,
         followerId: user.currUserId,
         follow: !followed,
@@ -70,6 +76,9 @@ const Profile = ({ user }: Props) => {
       setFollowerCount((prevCount) =>
         followed ? prevCount - 1 : prevCount + 1
       );
+      // setFollowingCount((prevCount) =>
+      //   followed ? prevCount - 1 : prevCount + 1
+      // );
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -103,18 +112,20 @@ const Profile = ({ user }: Props) => {
           <span className="profileInfoDescy">
             {user.city}, {user.country}
           </span>
-          <button
-            className="rightbarFollowButton"
-            onClick={handleFollowClick}
-            disabled={loading}
-          >
-            {followed ? (
-              <div className="rightbarFollowText">Unfollow</div>
-            ) : (
-              <div className="rightbarFollowText">Follow</div>
-            )}
-            {followed ? <RemoveIcon /> : <AddIcon />}
-          </button>
+          {user.objectId !== user.currUserId && (
+            <button
+              className="rightbarFollowButton"
+              onClick={handleFollowClick}
+              disabled={loading}
+            >
+              {followed ? (
+                <div className="rightbarFollowText">Unfollow</div>
+              ) : (
+                <div className="rightbarFollowText">Follow</div>
+              )}
+              {followed ? <RemoveIcon /> : <AddIcon />}
+            </button>
+          )}
           <div className="profileInfoLoc">
             <span className="mr-[20px]">
               {followerCount} - <b>Followers</b>
@@ -123,7 +134,7 @@ const Profile = ({ user }: Props) => {
               10 - <b>Photo Likes</b>
             </span>
             <span className="mr-[20px]">
-              10 - <b>Followings</b>
+              {followingCount} - <b>Followings</b>
             </span>
           </div>
         </div>
