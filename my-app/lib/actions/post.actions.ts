@@ -83,7 +83,7 @@ export async function deletePost({
     await connectToDB();
 
     // Delete the post
-    const deletedPost = await Post.findOneAndDelete({ id: postId });
+    const deletedPost = await Post.findOneAndDelete({ _id: postId });
 
     if (!deletedPost) {
       throw new Error("Post not found");
