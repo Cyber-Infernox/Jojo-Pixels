@@ -39,7 +39,7 @@ This repository contains the code for the Jojo-Pixels project.
    Open an empty folder where you want to clone the repository
 
    ```sh
-   git clone https://github.com/yourusername/Jojo-Pixels.git
+   git clone https://github.com/Cyber-Infernox/Jojo-Pixels.git
    cd Jojo-Pixels
    cd my-app
 
