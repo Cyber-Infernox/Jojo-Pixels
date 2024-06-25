@@ -51,7 +51,8 @@ This repository contains the code for the Jojo-Pixels project.
 3. **Set up environment variables:**
 
    Create a .env.local file inside the "my-app" folder with the following keys:
-   
+
+   ```sh
    NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
    NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
@@ -62,10 +63,10 @@ This repository contains the code for the Jojo-Pixels project.
    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_next_public_clerk_publishable_key_here
    CLERK_SECRET_KEY=your_clerk_secret_key_here
 
-   Obtain these values from:-
-   - MongoDB Atlas for MONGODB_URL
-   - Clerk for NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY
-   - UploadThing for UPLOADTHING_SECRET and UPLOADTHING_APP_ID
+Obtain these values from:
+- MongoDB Atlas for MONGODB_URL
+- Clerk for NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY
+- UploadThing for UPLOADTHING_SECRET and UPLOADTHING_APP_ID
 
 4. **Start the app:**
 
