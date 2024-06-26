@@ -11,10 +11,6 @@ Unleash your creativity and capture life's beauty with Jojo-Pixels, a dynamic ph
 - **Professional Exposure:** Utilize Jojo-Pixels to highlight your portfolio for potential business collaborations and career opportunities.
 - **High-Quality Uploads:** Upload high-resolution images up to 10 MB in size, ensuring your photos are displayed in their full glory.
 
-## Platform Benefits
-
-Jojo-Pixels not only celebrates your creativity but also serves as a robust platform for networking and professional growth. Whether you're looking to attract clients, collaborate on projects, or simply share your passion for photography, Jojo-Pixels provides the tools and visibility you need to thrive in the digital landscape.
-
 ## Project Structure
 
 This repository contains the code for the Jojo-Pixels project.
@@ -77,7 +73,7 @@ This repository contains the code for the Jojo-Pixels project.
 ## Key Points
 
 ### Environment Variables:
-Ensure you have set up the necessary environment variables in the `.env.local` file for the backend.
+Ensure you have set up the necessary environment variables in the `.env.local` file before starting the app.
 
 ### External Services:
 Visit [Clerk](https://clerk.com/) and [UploadThing](https://uploadthing.com/) to obtain the required keys for authentication and image uploading.
