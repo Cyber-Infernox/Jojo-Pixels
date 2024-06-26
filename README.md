@@ -60,11 +60,6 @@ This repository contains the code for the Jojo-Pixels project.
    CLERK_SECRET_KEY=your_clerk_secret_key_here
    ```
 
-   Refer:
-   - MongoDB Atlas for MONGODB_URL
-   - Clerk for NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY
-   - UploadThing for UPLOADTHING_SECRET and UPLOADTHING_APP_ID
-
 4. **Start the app:**
 
    ```sh
@@ -79,7 +74,7 @@ Ensure you have set up the necessary environment variables in the `.env.local` f
 Visit [Clerk](https://clerk.com/) and [UploadThing](https://uploadthing.com/) to obtain the required keys for authentication and image uploading.
 
 ### MongoDB:
-Make sure to replace `your_mongodb_connection_string_here` with your actual MongoDB connection string.
+Make sure to replace `your_mongodb_connection_string_here` with your actual MongoDB connection string from MongoDB Atlas.
 
 ## License
 This project is licensed under the MIT License.
